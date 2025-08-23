@@ -13,10 +13,12 @@
             </button>
 
             <!-- <form class="custom-form header-form ms-lg-3 ms-md-3 me-lg-auto me-md-auto order-2 order-lg-0 order-md-0" action="#" method="get" role="form"> -->
-                <select class="form-control form-control-sm" name="search"  aria-label="Select User" style="height: 30px; font-size: 0.8rem; width: 300px;">
-                    <option value="" disabled selected>Select Family User</option>
-                    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-                </select>
+                <div class="dropdown" *ngIf="dropdownOptions$ | async as options">
+                    <select style="height: 30px; font-size: 0.8rem; width: 300px;">
+                        <option value="" disabled selected>Select Family User</option>
+                        <option *ngFor="let opt of options" [value]="opt.id">{{ opt.name }}</option>
+                    </select>
+               </div> 
 
             <!-- </form> -->
 
@@ -140,7 +142,7 @@
                                 <div class="dropdown-menu-profile-thumb d-flex">
                                     <img src="images/medium-shot-happy-man-smiling.jpg" class="profile-image img-fluid me-3" alt="">
 
-                                    <div class="d-flex flex-column">
+                                    <div class="profile" *ngIf="userProfile$ | async as user">
                                         <small>{{user?.name}}</small>
                                     </div>
                                 </div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserProfileService, User } from '../shared/user-profile.service';
 import { CommonModule } from '@angular/common';
+import { Observable, switchMap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +13,13 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
 
-   user?: User;
-   users?: User[];
-  constructor(private userProfileService: UserProfileService) {}
+  userProfile$!: Observable<any>;
+  dropdownOptions$!: Observable<User[]>;
 
-   async ngOnInit() {
-    this.userProfileService.getUserProfile().subscribe(user => {
-      this.user = user; // updates automatically when userId changes
-    });
+  constructor(public userProfileService: UserProfileService, private http: HttpClient) {}
 
-     this.userProfileService.setSelectedValue(2);
-
-     this.users = await this.userProfileService.getAllUsers();
-
-     //this.users.forEach(user => console.log(user));
+  ngOnInit() {
+   this.userProfile$ = this.userProfileService.getUserProfile();
+    this.dropdownOptions$ = this.userProfileService.getDropdownOptions();
   }
 }

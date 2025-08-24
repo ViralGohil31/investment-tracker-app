@@ -19,7 +19,7 @@ export class UserProfileService {
 
   constructor(private http: HttpClient) {}
 
-  private selectedUserSubject = new BehaviorSubject<any>({});
+  private selectedUserSubject = new BehaviorSubject<any>({id: 0, name: ""});
   selectedUser$ = this.selectedUserSubject.asObservable();
 
   // update selected user

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User, UserProfileService } from '../shared/user-profile.service';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CommonModule } from '@angular/common';
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -18,7 +19,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgApexchartsModule],
+  imports: [NgApexchartsModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'
   ]
@@ -27,11 +28,8 @@ export class DashboardComponent implements OnInit{
   selectedUserObservable$!: Observable<any>;
   selectedUser!: User;
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions!: Partial<ChartOptions>;
-
-  constructor(public userProfileService: UserProfileService) {
-    this.chartOptions = {
-      series: [0.1, 0.1 , 0.1, 0.1, 0.1],   // initial data
+  public chartOptions: ChartOptions = {
+    series: [0, 0 , 0, 0, 0],   // initial data
       chart: {
         type: "pie",
         width: 380
@@ -51,12 +49,31 @@ export class DashboardComponent implements OnInit{
         }
       ]
     };
+
+  constructor(public userProfileService: UserProfileService) {
+  
   }
 
   ngOnInit(): void {
     this.selectedUserObservable$ = this.userProfileService.selectedUser$;
-    this.selectedUserObservable$.subscribe(user => {
+    this.selectedUserObservable$
+    .pipe(
+      filter((user): user is User => user !== null)  // type guard
+  )
+    .subscribe(user => {
+      console.log("user data ", user);
       this.selectedUser = user
-    })
+    });
+
+
+    this.chartOptions.series = [
+      10,
+      10,
+      10,
+      10,
+      60
+    ];
+
+    
   }
 }

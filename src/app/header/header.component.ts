@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserProfileService, User } from '../shared/user-profile.service';
 import { CommonModule } from '@angular/common';
-import { Observable, switchMap } from 'rxjs';
+import { filter, Observable, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,18 +25,28 @@ export class HeaderComponent {
   ngOnInit() {
    this.userProfile$ = this.userProfileService.getUserProfile();
    this.dropdownOptions$ = this.userProfileService.getDropdownOptions();
-   this.userProfile$.subscribe(userProfile => {
+   this.userProfile$
+   .pipe(
+  filter((user): user is User => user !== null)  // type guard
+)
+   .subscribe(userProfile => {
     this.loginUser = userProfile;
    })
-   this.dropdownOptions$.subscribe(users => {
+   this.dropdownOptions$
+   .pipe(
+  filter((user): user is User[] => user !== null)  // type guard
+)
+   .subscribe(users => {
     this.users = users;
 
     //below logic to default select login user
+    if(this.loginUser) {
     const user = this.users.find(u => u.id === this.loginUser.id);
       if (user) {
         this.userProfileService.setSelectedUser(user);
       }
-   })
+    }
+   });
   }
 
   onUserChange(event: any) {

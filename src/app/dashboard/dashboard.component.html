@@ -11,35 +11,35 @@
                     <div class="position-sticky py-4 px-3 sidebar-sticky">
                         <ul class="nav flex-column h-100">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">
+                                <a class="nav-link active" aria-current="page" href="">
                                     <i class="bi-house-fill me-2"></i>
                                     Dahsboard
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="wallet.html">
+                                <a class="nav-link" href="">
                                     <i class="bi-wallet me-2"></i>
                                     Investments
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="profile.html">
+                                <a class="nav-link" href="">
                                     <i class="bi-person me-2"></i>
                                     Portfolio Summary
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="setting.html">
+                                <a class="nav-link" href="">
                                     <i class="bi-gear me-2"></i>
                                     Reports
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="help-center.html">
+                                <a class="nav-link" href="">
                                     <i class="bi-question-circle me-2"></i>
                                     Help Center
                                 </a>
@@ -61,11 +61,11 @@
                     </div>
                     
                 </nav>
-                 <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start">
+                 <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start" style="background: #ececec;">
                     <div class="title-group mb-3">
                         <h1 class="h4 mb-0">Overview</h1>
                         <div>
-                        <small class="text-muted">Hello {{selectedUser.name}}, welcome back!</small>
+                        <small class="text-muted" *ngIf="selectedUserObservable$ | async as user">Hello {{user.name}}, welcome back!</small>
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@
 
                                 <div class="d-flex">
                                     <div>
-                                        <small>Valid Date</small>
+                                        <small>Last Updated Date</small>
                                         <p>12/2028</p>
                                     </div>
 
@@ -98,7 +98,7 @@
                                 <div id="pie-chart">
 
                                      <apx-chart
-                                            #chart
+                                            #chart 
                                         [series]="chartOptions.series"
                                         [chart]="chartOptions.chart"
                                         [labels]="chartOptions.labels"
@@ -117,7 +117,7 @@
                                 <div class="custom-block-profile-image-wrap mb-4">
                                     <img src="images/medium-shot-happy-man-smiling.jpg" class="custom-block-profile-image img-fluid" alt="">
 
-                                    <a href="setting.html" class="bi-pencil-square custom-block-edit-icon"></a>
+                                    <a href="" class="bi-pencil-square custom-block-edit-icon"></a>
                                 </div>
 
                                 <p class="d-flex flex-wrap mb-2">

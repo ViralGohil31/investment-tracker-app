@@ -14,7 +14,7 @@
 
             <!-- <form class="custom-form header-form ms-lg-3 ms-md-3 me-lg-auto me-md-auto order-2 order-lg-0 order-md-0" action="#" method="get" role="form"> -->
                 <div class="dropdown" *ngIf="dropdownOptions$ | async as options">
-                    <select  class="form-select" style="height: 50px; font-size: 0.8rem; width: 300px;">
+                    <select  class="form-select" style="height: 50px; font-size: 0.8rem; width: 300px;" (change)="onUserChange($event)">
                         <option value="" disabled selected>Select Family User</option>
                         <option *ngFor="let opt of options" [value]="opt.id">{{ opt.name }}</option>
                     </select>

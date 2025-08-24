@@ -16,10 +16,32 @@ export class HeaderComponent {
   userProfile$!: Observable<any>;
   dropdownOptions$!: Observable<User[]>;
 
+  users: User[] = [];
+  loginUser!: User;
+
+
   constructor(public userProfileService: UserProfileService, private http: HttpClient) {}
 
   ngOnInit() {
    this.userProfile$ = this.userProfileService.getUserProfile();
-    this.dropdownOptions$ = this.userProfileService.getDropdownOptions();
+   this.dropdownOptions$ = this.userProfileService.getDropdownOptions();
+   this.userProfile$.subscribe(userProfile => {
+    this.loginUser = userProfile;
+   })
+   this.dropdownOptions$.subscribe(users => {
+    this.users = users;
+
+    //below logic to default select login user
+    const user = this.users.find(u => u.id === this.loginUser.id);
+      if (user) {
+        this.userProfileService.setSelectedUser(user);
+      }
+   })
+  }
+
+  onUserChange(event: any) {
+    const userId = +event.target.value;
+    const selectedUser = this.users.find(u => u.id === userId);
+    this.userProfileService.setSelectedUser(selectedUser);
   }
 }

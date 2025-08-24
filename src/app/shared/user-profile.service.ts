@@ -19,6 +19,14 @@ export class UserProfileService {
 
   constructor(private http: HttpClient) {}
 
+  private selectedUserSubject = new BehaviorSubject<any>({});
+  selectedUser$ = this.selectedUserSubject.asObservable();
+
+  // update selected user
+  setSelectedUser(user: any) {
+    this.selectedUserSubject.next(user);
+  }
+
   getUserProfile(): Observable<any> {
     console.log("getUserProfile called");
     return this.http.get('https://jsonplaceholder.typicode.com/users/1');

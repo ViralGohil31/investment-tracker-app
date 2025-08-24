@@ -17,6 +17,13 @@ export type ChartOptions = {
   labels: any;
 };
 
+export type BarChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
+};
+
 @Component({
   selector: 'app-dashboard',
   imports: [NgApexchartsModule, CommonModule],
@@ -26,9 +33,13 @@ export type ChartOptions = {
 })
 export class DashboardComponent implements OnInit{
   selectedUserObservable$!: Observable<any>;
+
   selectedUser!: User;
-  @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: ChartOptions = {
+
+  @ViewChild("chart") pieChart!: ChartComponent;
+  @ViewChild("barChart") barChart!: ChartComponent;
+
+  public pieChartOptions: ChartOptions = {
     series: [0, 0 , 0, 0, 0],   // initial data
       chart: {
         type: "pie",
@@ -50,6 +61,25 @@ export class DashboardComponent implements OnInit{
       ]
     };
 
+    public barChartOptions: BarChartOptions = {
+      series: [
+        {
+          name: "Sales",
+          data: [30, 40, 45, 50, 49]   // initial data
+        }
+      ],
+      chart: {
+        type: "bar",
+        height: 350
+      },
+      title: {
+        text: "Dynamic Bar Chart"
+      },
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May"]
+      }
+    };
+
   constructor(public userProfileService: UserProfileService) {
   
   }
@@ -66,7 +96,7 @@ export class DashboardComponent implements OnInit{
     });
 
 
-    this.chartOptions.series = [
+    this.pieChartOptions.series = [
       10,
       10,
       10,

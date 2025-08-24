@@ -99,16 +99,23 @@
 
                                      <apx-chart
                                             #chart 
-                                        [series]="chartOptions.series"
-                                        [chart]="chartOptions.chart"
-                                        [labels]="chartOptions.labels"
-                                        [responsive]="chartOptions.responsive">
+                                        [series]="pieChartOptions.series"
+                                        [chart]="pieChartOptions.chart"
+                                        [labels]="pieChartOptions.labels"
+                                        [responsive]="pieChartOptions.responsive">
                                     </apx-chart>
                                 </div>
                             </div>
 
                             <div class="custom-block bg-white">
-                                <div id="chart"></div>
+                                <div id="chart">
+                                     <apx-chart
+                                        [series]="barChartOptions.series"
+                                        [chart]="barChartOptions.chart"
+                                        [xaxis]="barChartOptions.xaxis"
+                                        [title]="barChartOptions.title"
+                                    ></apx-chart>
+                                </div>
                             </div>
                         </div>
 

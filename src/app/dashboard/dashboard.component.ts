@@ -9,6 +9,8 @@ import {
   ApexChart,
   ChartComponent
 } from 'ng-apexcharts';
+import { RouterModule } from '@angular/router';
+
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -26,7 +28,7 @@ export type BarChartOptions = {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgApexchartsModule, CommonModule],
+  imports: [NgApexchartsModule, CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'
   ]

@@ -1,4 +1,10 @@
 
 <app-header></app-header>
-<app-dashboard></app-dashboard>
-<router-outlet />
+<app-menu></app-menu>
+<div class="container-fluid">
+    <div class="row">
+            <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start" style="background: #ececec;">   
+            <router-outlet />
+        </main>
+    </div>
+</div>

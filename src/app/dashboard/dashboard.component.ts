@@ -23,6 +23,7 @@ export type BarChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
 };
 
@@ -66,8 +67,12 @@ export class DashboardComponent implements OnInit{
     public barChartOptions: BarChartOptions = {
       series: [
         {
-          name: "Sales",
-          data: [30, 40, 45, 50, 49]   // initial data
+          name: "Invested amount",
+          data: [0, 0, 0, 0, 0]   // initial data
+        },
+        {
+          name: 'Interest',
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
         }
       ],
       chart: {
@@ -75,11 +80,16 @@ export class DashboardComponent implements OnInit{
         height: 350
       },
       title: {
-        text: "Dynamic Bar Chart"
+        text: "Investment Growth"
       },
       xaxis: {
         categories: ["Jan", "Feb", "Mar", "Apr", "May"]
+      },
+     yaxis: {
+      title: {
+        text: "Amount ($)"
       }
+    },
     };
 
   constructor(public userProfileService: UserProfileService) {
@@ -105,6 +115,17 @@ export class DashboardComponent implements OnInit{
       10,
       60
     ];
+
+    this.barChartOptions.series =[
+        {
+          name: "invested amount",
+          data: [120000, 200000, 40000, 500000, 100000]   // initial data
+        },
+         {
+          name: 'Interest',
+          data: [50000, 85000, 10100, 98000, 87000, 10500]
+        }
+      ]
 
     
   }

@@ -30,19 +30,24 @@ export class HeaderComponent {
   filter((user): user is User => user !== null)  // type guard
 )
    .subscribe(userProfile => {
+    console.log("Login User", userProfile.name);
     this.loginUser = userProfile;
    })
+
+   
    this.dropdownOptions$
    .pipe(
   filter((user): user is User[] => user !== null)  // type guard
 )
    .subscribe(users => {
+    console.log("Got an event for dropDown");
     this.users = users;
 
     //below logic to default select login user
     if(this.loginUser) {
     const user = this.users.find(u => u.id === this.loginUser.id);
       if (user) {
+        console.log("default select loginUser", user.name);
         this.userProfileService.setSelectedUser(user);
       }
     }
